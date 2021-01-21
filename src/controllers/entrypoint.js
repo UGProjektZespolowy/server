@@ -8,8 +8,12 @@ router.get('/cs', ((req, res) => {
 }));
 
 router.get('/mfi', ((req, res) => {
-    extract('scrapperInf_result', {}).then(data => res.json(data));
-}))
+    extract('scrapperMFI_result', {}).then(data => res.json(data));
+}));
+
+router.get('/ug', ((req, res) => {
+    extract('scrapperUG_result', {}).then(data => res.json(data));
+}));
 
 router.get('/search', (req, res) => {
     extract_all({

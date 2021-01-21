@@ -7,7 +7,7 @@ export const extract = function (collection, criteria) {
     return new Promise((resolve, reject) => {
         console.log("Connecting to databse");
         client.connect((err) => {
-            client.db("scrapper_result").collection(collection).find(criteria).toArray((err, docs) => {
+            client.db("scrapper_result").collection(collection).find(criteria).sort({ $natural: -1 }).toArray((err, docs) => {
                 if(err) {
                     reject(err);
                 } else {
@@ -21,7 +21,7 @@ export const extract = function (collection, criteria) {
 export const extract_all = function (criteria) {
     return new Promise((resolve, reject) => {
         client.connect((err) => {
-            const results = collections.map(collection => client.db("scrapper_result").collection(collection).find(criteria).toArray());
+            const results = collections.map(collection => client.db("scrapper_result").collection(collection).find(criteria).sort({ $natural: -1 }).toArray());
             Promise.all(results).then(results => {
                 resolve(Object.assign({}, ...collections.map((collection, idx) => ({[collection]: results[idx]}))));
             });
